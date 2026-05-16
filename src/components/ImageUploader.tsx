@@ -1,7 +1,7 @@
 "use client";
 import { use, useState } from "react";
 
-export default function Profile() {
+export default function ImageUploader() {
 
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
