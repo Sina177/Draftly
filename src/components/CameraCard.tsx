@@ -12,7 +12,7 @@ export default function CameraCard() {
   };  
 
   return (
-    <div className="flex items-center justify-center bg-blue-100 border border-gray-400 p-12 rounded-lg gap-3" onClick={() => inputRef.current?.click()}>
+    <div className="flex items-center justify-center bg-white border border-blue-200 p-2 rounded-lg gap-3" onClick={() => inputRef.current?.click()}>
       <Camera size={48} className="text-blue-500 mb-4"/>
       <p className="text-blue-500 text-sm">Take a photo of your draft or sketch</p>
       <input className="hidden" type="file" accept="image/*" capture="environment" ref={inputRef} onChange={(e) => {onFileSelect(e)}} />

@@ -4,6 +4,7 @@ import TopNav from "@/components/TopNav";
 import UploadZone from "@/components/UploadZone";
 import OrDivider from "@/components/OrDivider";
 import CameraCard from "@/components/CameraCard";
+import TipsList from "@/components/TipsList";
 
 export default function Home() {
     return (
@@ -12,12 +13,16 @@ export default function Home() {
         <TopNav />
 
         {/* Main area - 3 columns */}
-        <div className="grid grid-cols-[0.5fr_1.5fr_1fr] grid-rows-[1fr_auto]">
+        <div className="grid grid-cols-[0.5fr_1.5fr_1fr] grid-rows-[1fr_auto] min-h-0">
           {/* Left sidebar */}
-          <div className="bg-blue-100 p-4 row-span-2">
-            <UploadZone/>
-            <OrDivider/>
-            <CameraCard/>
+          <div className="bg-[#D5FFFF] p-4 row-span-2">
+            <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 min-h-[30vh]">
+              <p className="mb-3 font-bold">1. Upload an Image</p>
+              <UploadZone/>
+              <OrDivider/>
+              <CameraCard/>
+            </div>
+              <TipsList/>
           </div>
 
           {/* Center */}
