@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import ImageUploader from "@/components/ImageUploader";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
@@ -5,8 +7,11 @@ import UploadZone from "@/components/UploadZone";
 import OrDivider from "@/components/OrDivider";
 import CameraCard from "@/components/CameraCard";
 import TipsList from "@/components/TipsList";
+import PreviewPanel from "@/components/PreviewPanel";
 
 export default function Home() {
+  const [image, setImage] = useState<string | null>(null);
+
     return (
       <div className="h-screen grid grid-rows-[auto_1fr] font-[family-name:var(--font-inter)]">
         {/* Navbar - spans full width */}
@@ -18,16 +23,18 @@ export default function Home() {
           <div className="bg-[#D5FFFF] p-4 row-span-2">
             <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 min-h-[30vh]">
               <p className="mb-3 font-bold">1. Upload an Image</p>
-              <UploadZone/>
+              <UploadZone onFileSelect={(url) => setImage(url)} />
               <OrDivider/>
-              <CameraCard/>
+              <CameraCard onFileSelect={(url) => setImage(url)} />
             </div>
               <TipsList/>
           </div>
 
           {/* Center */}
-          <div className="bg-yellow-300 p-4">
-            Center
+          <div className="bg-[#D5FFFF] p-4">
+            <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 h-[78vh]">
+              <PreviewPanel image={image} />
+            </div>
           </div>
 
           {/* Right sidebar */}
