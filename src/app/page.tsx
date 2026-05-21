@@ -8,7 +8,7 @@ import TipsList from "@/components/TipsList";
 
 export default function Home() {
     return (
-      <div className="h-screen grid grid-rows-[auto_1fr]">
+      <div className="h-screen grid grid-rows-[auto_1fr] font-[family-name:var(--font-inter)]">
         {/* Navbar - spans full width */}
         <TopNav />
 

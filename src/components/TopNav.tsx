@@ -7,7 +7,7 @@ export default function TopNav() {
       {/* Logo */}
       <div className="flex items-center gap-3 bg-blue-300">
         <img src="/favicon.ico" alt="Logo" className="h-10 w-auto" />
-        Draftly
+        <p>Draftly</p>
       </div>
       {/* Navigation Links */}
       <div className="flex items-center gap-4 bg-green-300">
