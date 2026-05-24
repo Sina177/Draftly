@@ -8,6 +8,9 @@ import OrDivider from "@/components/OrDivider";
 import CameraCard from "@/components/CameraCard";
 import TipsList from "@/components/TipsList";
 import PreviewPanel from "@/components/PreviewPanel";
+import CodeTabs from "@/components/CodeTabs";
+import CodeViewer from "@/components/CodeViewer";
+import CodeActionBar from "@/components/CodeActionBar";
 
 export default function Home() {
   const [image, setImage] = useState<string | null>(null);
@@ -38,8 +41,13 @@ export default function Home() {
           </div>
 
           {/* Right sidebar */}
-          <div className="bg-blue-300 p-4 row-span-2">
-            Right Panel
+          <div className="bg-[#D5FFFF] p-4 row-span-2">
+            <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 h-[89vh]">
+              <p className="mb-3 font-bold">3. Your Code</p>
+              <CodeTabs />
+              <CodeViewer code={null} />
+              <CodeActionBar />
+            </div>
           </div>
 
           {/* Action bar - below center only */}
