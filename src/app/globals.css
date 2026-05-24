@@ -24,3 +24,48 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Code viewer - VS Code style scrollbars */
+.code-viewer::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.code-viewer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.code-viewer::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+.code-viewer::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Code viewer - shiki overrides */
+.code-viewer pre.shiki {
+  margin: 0;
+  padding: 1rem;
+  background: transparent !important;
+}
+
+/* Line numbers via CSS counters */
+.code-viewer pre.shiki code {
+  counter-reset: line;
+}
+.code-viewer pre.shiki code .line {
+  counter-increment: line;
+  display: inline-block;
+  width: 100%;
+}
+.code-viewer pre.shiki code .line::before {
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  text-align: right;
+  margin-right: 0.75rem;
+  padding-right: 0.5rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+}
