@@ -2,12 +2,12 @@
 import {Upload} from "lucide-react";
 import { useRef } from "react";
 
-export default function UploadZone({onFileSelect}: {onFileSelect: (url: string) => void}) {
+export default function UploadZone({onFileSelect}: {onFileSelect: (file: File) => void}) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const sendImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onFileSelect(URL.createObjectURL(e.target.files![0]));
+    onFileSelect(e.target.files![0]);
   };
   return (
     <>
