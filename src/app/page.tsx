@@ -71,7 +71,7 @@ export default function Home() {
             <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 h-[89vh] min-w-0">
               <p className="mb-3 font-bold">3. Your Code</p>
               <CodeTabs />
-              <CodeViewer code={TEST_CODE} />
+              <CodeViewer code={code} />
               <CodeActionBar />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Home() {
           {/* Action bar - below center only */}
           <div className="bg-[#D5FFFF] p-4 pt-0">
             <div className="bg-white p-3 border rounded-lg border-gray-200 h-[8vh] flex items-center">
-              <ActionBar status={status} />
+              <ActionBar status={status} generateCode={generateCode} disabled={!file || status === "generating"} />
             </div>
           </div>
         </div>
