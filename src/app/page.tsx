@@ -20,6 +20,7 @@ export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [code, setCode] = useState<string | null>(null);
   const [status, setStatus] = useState("idle");
+  const [activeTab, setActiveTab] = useState("html");
 
   const handleFileSelect = (f: File) => {
     setFile(f);
@@ -31,6 +32,7 @@ export default function Home() {
     setStatus("generating");
     try {
       const formData = new FormData();
+      formData.append("format", activeTab);
       formData.append("image", file);
       const res = await fetch("/api/generate", { method: "POST", body: formData });
       const data = await res.json();
@@ -70,8 +72,8 @@ export default function Home() {
           <div className="bg-[#D5FFFF] p-4 row-span-2 min-w-0">
             <div className="bg-white p-3 border rounded-lg mb-3 border-gray-200 h-[89vh] min-w-0">
               <p className="mb-3 font-bold">3. Your Code</p>
-              <CodeTabs />
-              <CodeViewer code={code} />
+              <CodeTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+              <CodeViewer code={code} language={activeTab === "react" ? "tsx" : "html"} />
               <CodeActionBar />
             </div>
           </div>

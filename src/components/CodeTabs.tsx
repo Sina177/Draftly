@@ -1,9 +1,4 @@
-import { useState } from "react";
-
-
-export default function CodeTabs() {
-
-  const [activeTab, setActiveTab] = useState("html");
+export default function CodeTabs({activeTab, setActiveTab}: {activeTab: string; setActiveTab: (tab: string) => void}) {
 
   return (
     <div className="flex gap-2 mb-4">

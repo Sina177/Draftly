@@ -4,19 +4,20 @@ import { codeToHtml } from "shiki";
 
 type Props = {
   code: string | null;
+  language: "html" | "tsx";
 };
 
-export default function CodeViewer({code}: Props) {
+export default function CodeViewer({code, language}: Props) {
   const [html, setHtml] = useState<string>("");
 
   useEffect(() => {
     if (code) {
       codeToHtml(code.trimStart(), {
-        lang: "html",
+        lang: language,
         theme: "github-dark",
       }).then(setHtml);
     }
-  }, [code]);
+  }, [code, language]);
 
   return (
     <div
