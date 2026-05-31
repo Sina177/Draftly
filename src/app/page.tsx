@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import ImageUploader from "@/components/ImageUploader";
-import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import UploadZone from "@/components/UploadZone";
 import OrDivider from "@/components/OrDivider";
@@ -12,7 +10,6 @@ import CodeTabs from "@/components/CodeTabs";
 import CodeViewer from "@/components/CodeViewer";
 import CodeActionBar from "@/components/CodeActionBar";
 
-import { TEST_CODE } from "./test/testCode";
 import ActionBar from "@/components/ActionBar";
 
 export default function Home() {
@@ -74,7 +71,7 @@ export default function Home() {
               <p className="mb-3 font-bold">3. Your Code</p>
               <CodeTabs activeTab={activeTab} setActiveTab={setActiveTab} />
               <CodeViewer code={code} language={activeTab === "react" ? "tsx" : "html"} />
-              <CodeActionBar />
+              <CodeActionBar code={code} generateCode={generateCode} />
             </div>
           </div>
 

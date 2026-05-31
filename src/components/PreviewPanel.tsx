@@ -19,7 +19,7 @@ export default function PreviewPanel({image}: {image: string | null}) {
               <Plus size={40} className="text-gray-500 px-2 py-1 cursor-pointer" onClick={() => setScale(Math.min(3, scale + 0.1))}/>
             </div>
             <div className="mb-2">
-              <Expand size={40} className="text-gray-500 px-2 py-1 cursor-pointer" onClick={() => setIsFullScreen(!isFullScreen)}/>
+              <Expand size={40} className={"text-gray-500 px-2 py-1" + (image ? ' cursor-pointer' : '')} onClick={() => image && setIsFullScreen(!isFullScreen)}/>
             </div>  
           </div>
           
