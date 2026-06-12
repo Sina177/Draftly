@@ -45,5 +45,7 @@ User uploads sketch
 ## Implementation Phases
 
 1. **Phase 1 — Streaming Pipeline** (see `01-phase1-streaming-pipeline.md`)
-2. **Phase 2 — Supabase Auth + RLS** (see `02-phase2-supabase-auth.md`)
+2. **Phase 2 — Supabase Auth + RLS + Rate Limiting** (see `02-phase2-supabase-auth.md`)
 3. **Phase 3 — History Feature** (see `03-phase3-history.md`)
+4. **Phase 4 — Evaluation Pipeline** (see `04-phase4-evals.md`)
+5. **Phase 5 — Parallel Generation + Incremental Re-generation** (see `05-phase5-optimization.md`)

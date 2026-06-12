@@ -1,6 +1,6 @@
-# Phase 2: Supabase Auth + RLS
+# Phase 2: Supabase Auth + RLS + Rate Limiting
 
-Adds user accounts and persistent storage so users can save and revisit past conversions.
+Adds user accounts, persistent storage, and per-user rate limiting.
 
 ## Why?
 
@@ -94,6 +94,33 @@ create policy "Users can delete own generations"
 
 ---
 
+---
+
+## Step 11 — Rate Limiting (Per-User Lifetime Cap)
+
+Each user gets a fixed number of lifetime generations (e.g., 10). This prevents API cost abuse and is a real product decision.
+
+### Implementation
+
+- Query `count(*)` from the `generations` table for the current user before calling Claude
+- If count >= 10, return an error response instead of calling the API
+- Show remaining generations in the UI (e.g., "7/10 generations remaining") — display this in the ActionBar or TopNav
+- The count is enforced server-side in the API route, not just in the frontend (client-side checks can be bypassed)
+
+### Why a lifetime cap instead of per-hour rate limiting?
+
+- Simpler to implement (just a count query, no sliding window logic)
+- Makes sense for a portfolio project — you don't want unlimited usage on your API key
+- Easy to extend later: add a paid tier that resets the counter or increases the cap
+
+**Files:**
+- `src/app/api/generate/route.ts` (modify — add count check before Claude call)
+- `src/app/api/analyze/route.ts` (modify — optionally check here too)
+- `src/components/ActionBar.tsx` (modify — show remaining count)
+- `src/components/TopNav.tsx` (modify — optionally show count)
+
+---
+
 ## Key Decisions
 
 | Decision | Choice | Why |
@@ -102,3 +129,4 @@ create policy "Users can delete own generations"
 | Auth strategy | Email/password (MVP) | Simplest to implement, add OAuth providers later |
 | Image storage | Supabase Storage | Co-located with auth/DB, RLS built-in |
 | When to save | After streaming completes | Need the full generated code string before inserting |
+| Rate limiting | Lifetime cap (10 per user) | Simple, prevents abuse, enforceable via RLS count query |
