@@ -31,7 +31,11 @@ export default function Home() {
       const formData = new FormData();
       formData.append("format", activeTab);
       formData.append("image", file);
-      const res = await fetch("/api/generate", { method: "POST", body: formData });
+      const res = await fetch("/api/analyze", { method: "POST", body: formData });
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
       const data = await res.json();
       setCode(data.message.text);
       setStatus("done");
