@@ -10,6 +10,7 @@ import CodeTabs from "@/components/CodeTabs";
 import CodeViewer from "@/components/CodeViewer";
 import CodeActionBar from "@/components/CodeActionBar";
 import ActionBar from "@/components/ActionBar";
+import ComponentBreakdown from "@/components/ComponentBreakdown";
 
 export default function Home() {
   const [image, setImage] = useState<string | null>(null);
@@ -17,10 +18,30 @@ export default function Home() {
   const [code, setCode] = useState<string | null>(null);
   const [status, setStatus] = useState("idle");
   const [activeTab, setActiveTab] = useState("html");
+  const [components, setComponents] = useState<{ name: string; description: string }[] | null>(null);
 
   const handleFileSelect = (f: File) => {
     setFile(f);
     setImage(URL.createObjectURL(f));
+  };
+
+  const analyzeImage = async () => {
+    if (!file) return;
+    setStatus("analyzing");
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("/api/analyze", { method: "POST", body: formData });
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+      const data = await res.json();
+      setComponents(data.analysis.components);
+      setStatus("confirming");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const generateCode = async () => {
@@ -30,7 +51,7 @@ export default function Home() {
       const formData = new FormData();
       formData.append("format", activeTab);
       formData.append("image", file);
-      const res = await fetch("/api/analyze", { method: "POST", body: formData });
+      const res = await fetch("/api/generate", { method: "POST", body: formData });
       if (!res.ok) {
         setStatus("error");
         return;
@@ -64,7 +85,14 @@ export default function Home() {
           {/* Center */}
           <div className="bg-[#D5FFFF] p-4">
             <div className="bg-white p-3 border rounded-lg mb-0 border-gray-200 h-[78vh]">
-              <PreviewPanel image={image} />
+              {status === "confirming" ? (
+                <ComponentBreakdown 
+                  components={components || []} 
+                  setComponents={setComponents} 
+                />
+              ) : (
+                <PreviewPanel image={image} />
+              )}
             </div>
           </div>
 
@@ -81,11 +109,11 @@ export default function Home() {
           {/* Action bar - below center only */}
           <div className="bg-[#D5FFFF] p-4 pt-0">
             <div className="bg-white p-3 border rounded-lg border-gray-200 h-[8vh] flex items-center">
-              <ActionBar status={status} generateCode={generateCode} disabled={!file || status === "generating"} />
+              <ActionBar status={status} generateCode={generateCode} analyzeImage={analyzeImage} disabled={!file || status === "generating" || status === "analyzing"} />
             </div>
           </div>
         </div>
-        
+
       </div>
     );
   }

@@ -3,7 +3,7 @@ import {Stars} from "lucide-react";
 
 
 
-export default function ActionBar({status, generateCode, disabled}: {status: string; generateCode: () => void; disabled: boolean}) {
+export default function ActionBar({status, generateCode, analyzeImage, disabled}: {status: string; generateCode: () => void; analyzeImage: () => void; disabled: boolean}) {
 
 
   return (
@@ -13,18 +13,20 @@ export default function ActionBar({status, generateCode, disabled}: {status: str
           "bg-green-500": status === "done",
           "bg-gray-400": status === "idle",
           "bg-yellow-500": status === "generating",
-          "bg-red-500": status === "error"
+          "bg-red-500": status === "error",
+          "bg-yellow-500 animate-pulse": status === "analyzing",
+          "bg-blue-600 animate-pulse": status === "confirming",
         })}></div>
-        <p className="text-xs text-gray-500">{status === "done" ? "Done" : status === "generating" ? "Generating..." : status === "error" ? "Error" : status === "idle" ? "Ready" : ""}</p>
+        <p className="text-xs text-gray-500">{status === "done" ? "Done" : status === "generating" ? "Generating..." : status === "analyzing" ? "Analyzing..." : status === "confirming" ? "Confirming..." : status === "error" ? "Error" : status === "idle" ? "Ready" : ""}</p>
       </div>
       
       <button className={clsx("bg-blue-500 text-white text-xs px-65 py-1.5 rounded-md flex items-center", {
         "bg-blue-500 hover:bg-blue-600 cursor-pointer": !disabled,
         "bg-gray-600 opacity-40": disabled
       })}
-        onClick={generateCode} disabled={disabled}>
+        onClick={status === "confirming" ? generateCode : analyzeImage} disabled={disabled}>
         <Stars className="size-4 mr-2" />
-        Get Code
+        {status === "confirming" ? "Get Code" : "Analyze"}
       </button>
     </div>
   )
