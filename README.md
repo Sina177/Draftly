@@ -7,7 +7,7 @@ Draftly uses Claude's multimodal vision AI to interpret hand-drawn wireframes, i
 ## Demo
 
 <!-- Replace with a GIF or screenshot of Draftly in action -->
-![Draftly Demo](docs/demo.gif)
+![Demo](docs/assets/demo.png)
 
 > Upload a sketch on the left, review detected components, and watch the code stream in on the right while the live preview builds itself.
 
